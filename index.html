@@ -1,0 +1,1475 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KDS - Student Cadet & Developer Portfolio">
+    <meta name="keywords" content="portfolio, web developer, coding, Sainik School, KDS">
+    <title>KDS | Student Cadet & Developer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'jetbrains': ['JetBrains Mono', 'monospace'],
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'rajdhani': ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        'khatarnak': {
+                            'dark': '#0a0a0a',
+                            'darker': '#050505',
+                            'accent': '#00ff9d',
+                            'accent-hover': '#00cc7a',
+                            'blue': '#00d4ff',
+                            'purple': '#9d00ff',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        :root {
+            --khatarnak-dark: #0a0a0a;
+            --khatarnak-accent: #00ff9d;
+            --khatarnak-blue: #00d4ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--khatarnak-dark);
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--khatarnak-dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--khatarnak-accent);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--khatarnak-blue);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--khatarnak-accent), var(--khatarnak-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glowing Borders */
+        .glow-border {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--khatarnak-accent), var(--khatarnak-blue), var(--khatarnak-purple));
+            z-index: -1;
+            border-radius: inherit;
+            filter: blur(10px);
+            opacity: 0.7;
+        }
+        
+        /* Typing Animation */
+        .typing::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Project Cards Hover */
+        .project-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 157, 0.2);
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-overlay {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        /* Skill Bars */
+        .skill-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--khatarnak-accent), var(--khatarnak-blue));
+            border-radius: 4px;
+            transition: width 1.5s ease;
+        }
+        
+        /* Cursor Effect */
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: screen;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .cursor-glow.active {
+            opacity: 1;
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem !important;
+            }
+        }
+        
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--khatarnak-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            color: var(--khatarnak-accent);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">INITIALIZING KDS SYSTEM...</div>
+    </div>
+    
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+    
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-khatarnak-dark/90 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold font-orbitron gradient-text">
+                    KDS<span class="text-khatarnak-accent">.DEV</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#hero" class="hover:text-khatarnak-accent transition-colors">Home</a>
+                    <a href="#about" class="hover:text-khatarnak-accent transition-colors">About</a>
+                    <a href="#skills" class="hover:text-khatarnak-accent transition-colors">Skills</a>
+                    <a href="#projects" class="hover:text-khatarnak-accent transition-colors">Projects</a>
+                    <a href="#services" class="hover:text-khatarnak-accent transition-colors">Services</a>
+                    <a href="#contact" class="hover:text-khatarnak-accent transition-colors">Contact</a>
+                </div>
+                <button class="md:hidden text-white" id="mobileMenuBtn">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="hidden md:hidden mt-4" id="mobileMenu">
+                <a href="#hero" class="block py-2 hover:text-khatarnak-accent">Home</a>
+                <a href="#about" class="block py-2 hover:text-khatarnak-accent">About</a>
+                <a href="#skills" class="block py-2 hover:text-khatarnak-accent">Skills</a>
+                <a href="#projects" class="block py-2 hover:text-khatarnak-accent">Projects</a>
+                <a href="#services" class="block py-2 hover:text-khatarnak-accent">Services</a>
+                <a href="#contact" class="block py-2 hover:text-khatarnak-accent">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center pt-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="hero-content">
+                    <div class="mb-4">
+                        <span class="inline-block py-1 px-3 rounded-full bg-khatarnak-accent/10 text-khatarnak-accent font-jetbrains text-sm">
+                            <i class="fas fa-user-military"></i> Student Cadet | Developer
+                        </span>
+                    </div>
+                    <h1 class="hero-title text-5xl md:text-7xl font-orbitron font-bold mb-6">
+                        HELLO, I'M <span class="gradient-text">KDS</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-4xl mb-8 font-rajdhani">
+                        <span class="typing">Building high-quality, modern, and powerful websites.</span>
+                    </h2>
+                    <p class="text-gray-400 mb-8 max-w-lg">
+                        I'm a passionate Student Cadet from Sainik School Gorakhpur who loves coding, basketball, and creating innovative web solutions. My mission is to innovate this world to the next level generation with cutting-edge technology.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mb-12">
+                        <a href="#projects" class="px-8 py-4 bg-khatarnak-accent text-khatarnak-dark font-bold rounded-lg hover:bg-khatarnak-accent-hover transition-all transform hover:scale-105">
+                            <i class="fas fa-folder-open mr-2"></i>View My Work
+                        </a>
+                        <a href="#contact" class="px-8 py-4 border border-khatarnak-accent text-khatarnak-accent font-bold rounded-lg hover:bg-khatarnak-accent/10 transition-all">
+                            <i class="fas fa-paper-plane mr-2"></i>Hire Me
+                        </a>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <a href="https://github.com/" target="_blank" class="text-2xl hover:text-khatarnak-accent transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/" target="_blank" class="text-2xl hover:text-khatarnak-accent transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://instagram.com/" target="_blank" class="text-2xl hover:text-khatarnak-accent transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image relative">
+                    <div class="relative glow-border p-2 rounded-2xl">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                             alt="Coding Avatar" 
+                             class="rounded-xl w-full h-auto object-cover">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-r from-khatarnak-accent to-khatarnak-blue rounded-2xl animate-float"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-4">
+                    ABOUT <span class="gradient-text">ME</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-khatarnak-accent to-khatarnak-blue mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <div class="bg-gray-900/50 rounded-xl p-8 border border-gray-800">
+                        <h3 class="text-2xl font-bold mb-6 font-rajdhani">
+                            <i class="fas fa-user-graduate text-khatarnak-accent mr-3"></i>Student Cadet at Sainik School Gorakhpur
+                        </h3>
+                        <p class="text-gray-300 mb-4">
+                            I'm currently pursuing my education at Sainik School Gorakhpur while simultaneously diving deep into the world of web development. As a Student Cadet, I've learned discipline, teamwork, and leadership - qualities that reflect in my code and work ethic.
+                        </p>
+                        <p class="text-gray-300 mb-4">
+                            My journey into coding started [mention how you started - e.g., "6 months ago"] when I wrote my first "Hello World" program. Since then, I've been fascinated by how code can transform ideas into reality. I spend countless hours debugging, learning new frameworks, and building projects that solve real problems.
+                        </p>
+                        <p class="text-gray-300">
+                            When I'm not coding, you'll find me on the basketball court, strategizing my next move - both in the game and in life. I believe in pushing boundaries and innovating relentlessly.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-1">
+                    <div class="bg-gray-900/50 rounded-xl p-8 border border-gray-800">
+                        <h3 class="text-2xl font-bold mb-6 font-rajdhani">
+                            <i class="fas fa-basketball-ball text-khatarnak-blue mr-3"></i>Quick Facts
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-khatarnak-accent mr-3"></i>
+                                <span>Coding Experience: 6+ Months</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-khatarnak-accent mr-3"></i>
+                                <span>Languages: C, C++, Java, JavaScript</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-khatarnak-accent mr-3"></i>
+                                <span>Frameworks: React, Next.js</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-khatarnak-accent mr-3"></i>
+                                <span>Tools: Git, GitHub, VS Code</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-khatarnak-accent mr-3"></i>
+                                <span>Passion: Basketball & Innovation</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-900/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-4">
+                    TECH <span class="gradient-text">STACK</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-khatarnak-accent to-khatarnak-blue mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Frontend -->
+                <div class="skill-category">
+                    <h3 class="text-xl font-bold mb-6 text-khatarnak-accent font-rajdhani">
+                        <i class="fab fa-html5 mr-2"></i>Frontend
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>HTML5</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>CSS3</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>JavaScript</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>React</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Backend -->
+                <div class="skill-category">
+                    <h3 class="text-xl font-bold mb-6 text-khatarnak-blue font-rajdhani">
+                        <i class="fas fa-server mr-2"></i>Backend
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>Node.js</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>Express.js</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>Firebase</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tools -->
+                <div class="skill-category">
+                    <h3 class="text-xl font-bold mb-6 text-khatarnak-purple font-rajdhani">
+                        <i class="fas fa-tools mr-2"></i>Tools
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>Git/GitHub</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>VS Code</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>Command Line</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Other -->
+                <div class="skill-category">
+                    <h3 class="text-xl font-bold mb-6 text-yellow-500 font-rajdhani">
+                        <i class="fas fa-star mr-2"></i>Other Skills
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>Problem Solving</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>UI/UX Design</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>Debugging</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-4">
+                    MY <span class="gradient-text">PROJECTS</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-khatarnak-accent to-khatarnak-blue mx-auto"></div>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+                    A collection of my best work. Each project showcases my skills in web development and problem-solving abilities.
+                </p>
+            </div>
+            
+            <!-- Project Filter -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn active px-6 py-3 rounded-full border border-khatarnak-accent text-khatarnak-accent hover:bg-khatarnak-accent/10 transition-all" data-filter="all">
+                    All
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full border border-gray-700 text-gray-400 hover:bg-gray-800 hover:text-white transition-all" data-filter="frontend">
+                    Frontend
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full border border-gray-700 text-gray-400 hover:bg-gray-800 hover:text-white transition-all" data-filter="fullstack">
+                    Fullstack
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full border border-gray-700 text-gray-400 hover:bg-gray-800 hover:text-white transition-all" data-filter="mobile">
+                    Mobile
+                </button>
+            </div>
+            
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsGrid">
+                <!-- Project 1 -->
+                <div class="project-card glow-border rounded-xl overflow-hidden filter-frontend" style="display: none;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                             alt="E-commerce Website" 
+                             class="w-full h-64 object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex items-end p-6">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2">E-commerce Platform</h3>
+                                <p class="text-gray-300 mb-4">Full-featured online store with cart, checkout, and admin panel.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-khatarnak-accent/20 text-khatarnak-accent rounded text-sm">React</span>
+                                    <span class="px-3 py-1 bg-khatarnak-accent/20 text-khatarnak-accent rounded text-sm">Node.js</span>
+                                    <span class="px-3 py-1 bg-khatarnak-accent/20 text-khatarnak-accent rounded text-sm">MongoDB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-900">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-xl font-bold">E-commerce Platform</h4>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fas fa-external-link-alt text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">A complete e-commerce solution with user authentication, product management, and secure payments.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">React</span>
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Node.js</span>
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card glow-border rounded-xl overflow-hidden filter-fullstack" style="display: none;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                             alt="Task Manager" 
+                             class="w-full h-64 object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex items-end p-6">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2">Task Management App</h3>
+                                <p class="text-gray-300 mb-4">Organize your tasks with this productivity web application.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-khatarnak-blue/20 text-khatarnak-blue rounded text-sm">Next.js</span>
+                                    <span class="px-3 py-1 bg-khatarnak-blue/20 text-khatarnak-blue rounded text-sm">Firebase</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-900">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-xl font-bold">Task Management App</h4>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fas fa-external-link-alt text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">A modern task management application with real-time collaboration features.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Next.js</span>
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card glow-border rounded-xl overflow-hidden filter-frontend" style="display: none;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                             alt="Portfolio Website" 
+                             class="w-full h-64 object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex items-end p-6">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2">Portfolio Website</h3>
+                                <p class="text-gray-300 mb-4">My own developer portfolio with animations and modern design.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-khatarnak-purple/20 text-khatarnak-purple rounded text-sm">HTML/CSS</span>
+                                    <span class="px-3 py-1 bg-khatarnak-purple/20 text-khatarnak-purple rounded text-sm">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-900">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-xl font-bold">Portfolio Website</h4>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fas fa-external-link-alt text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">The website you're currently browsing! Built with modern web technologies and smooth animations.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">HTML/CSS</span>
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card glow-border rounded-xl overflow-hidden filter-mobile" style="display: none;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                             alt="Fitness App" 
+                             class="w-full h-64 object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex items-end p-6">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2">Fitness Tracker</h3>
+                                <p class="text-gray-300 mb-4">Mobile app for tracking workouts and nutrition.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-green-500/20 text-green-500 rounded text-sm">React Native</span>
+                                    <span class="px-3 py-1 bg-green-500/20 text-green-500 rounded text-sm">Redux</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-900">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-xl font-bold">Fitness Tracker</h4>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fas fa-external-link-alt text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">A comprehensive fitness tracking application with workout plans and progress tracking.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">React Native</span>
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Redux</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card glow-border rounded-xl overflow-hidden filter-fullstack" style="display: none;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                             alt="Blog Platform" 
+                             class="w-full h-64 object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex items-end p-6">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2">Blog & CMS</h3>
+                                <p class="text-gray-300 mb-4">Content management system with admin dashboard and blogging features.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded text-sm">Next.js</span>
+                                    <span class="px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded text-sm">Strapi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-900">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-xl font-bold">Blog & CMS</h4>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fas fa-external-link-alt text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">A full-featured blogging platform with rich text editor and media management.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Next.js</span>
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Strapi</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="project-card glow-border rounded-xl overflow-hidden filter-frontend" style="display: none;">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                             alt="Weather App" 
+                             class="w-full h-64 object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex items-end p-6">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2">Weather Dashboard</h3>
+                                <p class="text-gray-300 mb-4">Real-time weather information with beautiful visualizations.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-red-500/20 text-red-500 rounded text-sm">Vue.js</span>
+                                    <span class="px-3 py-1 bg-red-500/20 text-red-500 rounded text-sm">OpenWeather API</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-900">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-xl font-bold">Weather Dashboard</h4>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                                    <i class="fas fa-external-link-alt text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">A sleek weather application with real-time data and beautiful charts.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Vue.js</span>
+                            <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">OpenWeather API</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-900/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-4">
+                    MY <span class="gradient-text">SERVICES</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-khatarnak-accent to-khatarnak-blue mx-auto"></div>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+                    What I can do for you. High-quality, modern, and powerful web solutions.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-item glow-border rounded-xl p-8 bg-gray-900/50">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 rounded-full bg-khatarnak-accent/20 flex items-center justify-center">
+                            <i class="fas fa-laptop-code text-3xl text-khatarnak-accent"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Website Development</h3>
+                    <p class="text-gray-400 mb-6">Custom website development tailored to your needs. From simple landing pages to complex web applications.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Frontend</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Backend</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Fullstack</span>
+                    </div>
+                    <a href="#contact" class="inline-block px-6 py-3 bg-khatarnak-accent text-khatarnak-dark font-bold rounded-lg hover:bg-khatarnak-accent-hover transition-all">
+                        Get Quote
+                    </a>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-item glow-border rounded-xl p-8 bg-gray-900/50">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 rounded-full bg-khatarnak-blue/20 flex items-center justify-center">
+                            <i class="fas fa-mobile-alt text-3xl text-khatarnak-blue"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Mobile App Development</h3>
+                    <p class="text-gray-400 mb-6">Responsive mobile applications for iOS and Android using React Native and Flutter.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">React Native</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Flutter</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Cross-platform</span>
+                    </div>
+                    <a href="#contact" class="inline-block px-6 py-3 bg-khatarnak-blue text-white font-bold rounded-lg hover:bg-khatarnak-blue-hover transition-all">
+                        Get Quote
+                    </a>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-item glow-border rounded-xl p-8 bg-gray-900/50">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 rounded-full bg-khatarnak-purple/20 flex items-center justify-center">
+                            <i class="fas fa-paint-brush text-3xl text-khatarnak-purple"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">UI/UX Design</h3>
+                    <p class="text-gray-400 mb-6">Stunning, user-friendly interfaces that engage visitors and drive conversions.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Figma</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Adobe XD</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Prototyping</span>
+                    </div>
+                    <a href="#contact" class="inline-block px-6 py-3 bg-khatarnak-purple text-white font-bold rounded-lg hover:bg-khatarnak-purple-hover transition-all">
+                        Get Quote
+                    </a>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="service-item glow-border rounded-xl p-8 bg-gray-900/50">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 rounded-full bg-yellow-500/20 flex items-center justify-center">
+                            <i class="fas fa-rocket text-3xl text-yellow-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Landing Pages</h3>
+                    <p class="text-gray-400 mb-6">High-converting landing pages designed to capture leads and drive sales.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Conversion-focused</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">A/B Testing</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">SEO Optimized</span>
+                    </div>
+                    <a href="#contact" class="inline-block px-6 py-3 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-500-hover transition-all">
+                        Get Quote
+                    </a>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="service-item glow-border rounded-xl p-8 bg-gray-900/50">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
+                            <i class="fas fa-sync-alt text-3xl text-green-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Website Redesign</h3>
+                    <p class="text-gray-400 mb-6">Modernize your existing website with a fresh, responsive, and performance-optimized design.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Redesign</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Optimization</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Performance</span>
+                    </div>
+                    <a href="#contact" class="inline-block px-6 py-3 bg-green-500 text-black font-bold rounded-lg hover:bg-green-500-hover transition-all">
+                        Get Quote
+                    </a>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="service-item glow-border rounded-xl p-8 bg-gray-900/50">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 rounded-full bg-pink-500/20 flex items-center justify-center">
+                            <i class="fas fa-code text-3xl text-pink-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Maintenance & Support</h3>
+                    <p class="text-gray-400 mb-6">Ongoing maintenance and support to keep your website secure and up-to-date.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Security</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Updates</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded text-sm">Backup</span>
+                    </div>
+                    <a href="#contact" class="inline-block px-6 py-3 bg-pink-500 text-black font-bold rounded-lg hover:bg-pink-500-hover transition-all">
+                        Get Quote
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-4">
+                    CLIENT <span class="gradient-text">REVIEWS</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-khatarnak-accent to-khatarnak-blue mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-900/50 rounded-xl p-8 border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-khatarnak-accent/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-khatarnak-accent"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Rahul Sharma</h4>
+                            <p class="text-sm text-gray-400">Startup Founder</p>
+                        </div>
+                    </div>
+                    <div class="flex text-yellow-500 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic">"KDS developed our company website and it completely transformed our online presence. The site is fast, modern, and exactly what we needed. Highly recommended!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-900/50 rounded-xl p-8 border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-khatarnak-blue/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-khatarnak-blue"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Priya Mehta</h4>
+                            <p class="text-sm text-gray-400">E-commerce Owner</p>
+                        </div>
+                    </div>
+                    <div class="flex text-yellow-500 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic">"Amazing work! Very professional and delivered ahead of schedule. Our online store conversion rate increased by 40% after the redesign."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-900/50 rounded-xl p-8 border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-khatarnak-purple/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-khatarnak-purple"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Ankit Verma</h4>
+                            <p class="text-sm text-gray-400">Marketing Manager</p>
+                        </div>
+                    </div>
+                    <div class="flex text-yellow-500 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic">"KDS is a coding prodigy! He built our mobile app with React Native and it's been smooth sailing since launch. Great communication and technical skills."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Achievements Section -->
+    <section class="py-20 bg-gray-900/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-4">
+                    MY <span class="gradient-text">ACHIEVEMENTS</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-khatarnak-accent to-khatarnak-blue mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-5xl font-bold gradient-text mb-2 counter" data-target="10">0</div>
+                    <p class="text-gray-400">Projects Completed</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-bold gradient-text mb-2 counter" data-target="1">0</div>
+                    <p class="text-gray-400">Year Experience</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-bold gradient-text mb-2 counter" data-target="5">0</div>
+                    <p class="text-gray-400">Happy Clients</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-bold gradient-text mb-2 counter" data-target="100">0</div>
+                    <p class="text-gray-400">% Dedication</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-4">
+                    GET IN <span class="gradient-text">TOUCH</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-khatarnak-accent to-khatarnak-blue mx-auto"></div>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+                    Have a project in mind? Let's build something amazing together! I'll respond within 24 hours.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="bg-gray-900/50 rounded-xl p-8 border border-gray-800">
+                    <h3 class="text-2xl font-bold mb-8 font-rajdhani">Contact Information</h3>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-khatarnak-accent/20 flex items-center justify-center">
+                                <i class="fas fa-envelope text-khatarnak-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Email</h4>
+                                <p class="text-gray-400">krrishdeepsingh.1012@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-khatarnak-blue/20 flex items-center justify-center">
+                                <i class="fas fa-phone text-khatarnak-blue"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Phone</h4>
+                                <p class="text-gray-400">+91 9129945XXX (Available on request)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-khatarnak-purple/20 flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-khatarnak-purple"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Location</h4>
+                                <p class="text-gray-400">Sainik School Gorakhpur, Uttar Pradesh, India</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <h4 class="font-bold mb-4">Working Hours</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-gray-400">Monday - Friday</p>
+                                <p class="text-xl font-bold">10:00 AM - 7:00 PM</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-400">Saturday - Sunday</p>
+                                <p class="text-xl font-bold">10:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="bg-gray-900/50 rounded-xl p-8 border border-gray-800">
+                    <h3 class="text-2xl font-bold mb-8 font-rajdhani">Send a Message</h3>
+                    
+                    <form id="contactForm">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Name</label>
+                                <input type="text" id="name" required 
+                                       class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-khatarnak-accent transition-colors"
+                                       placeholder="Your name">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Email</label>
+                                <input type="email" id="email" required 
+                                       class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-khatarnak-accent transition-colors"
+                                       placeholder="your@email.com">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Subject</label>
+                                <input type="text" id="subject" required 
+                                       class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-khatarnak-accent transition-colors"
+                                       placeholder="Project type">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Message</label>
+                                <textarea id="message" rows="5" required 
+                                       class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-khatarnak-accent transition-colors"
+                                       placeholder="Tell me about your project..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-khatarnak-accent to-khatarnak-blue text-khatarnak-dark font-bold rounded-lg hover:opacity-90 transition-opacity">
+                                <i class="fas fa-paper-plane mr-2"></i>Send Message
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Success Message -->
+                    <div id="successMessage" class="hidden mt-6 p-4 bg-green-900/30 border border-green-500 rounded-lg text-green-400">
+                        <i class="fas fa-check-circle mr-2"></i>Message sent successfully! I'll get back to you soon.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-bold font-orbitron gradient-text">
+                        KDS<span class="text-khatarnak-accent">.DEV</span>
+                    </a>
+                    <p class="text-gray-400 mt-2">© 2024 All rights reserved.</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://github.com/" target="_blank" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/" target="_blank" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="https://instagram.com/" target="_blank" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" class="text-gray-400 hover:text-khatarnak-accent transition-colors">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
+                <p>Made with <i class="fas fa-heart text-khatarnak-accent mx-1"></i> by KDS - Student Cadet & Developer</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // DOM Content Loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Remove loader
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+            
+            // Initialize particles
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: ["#00ff9d", "#00d4ff", "#9d00ff"] },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#ffffff",
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" }
+                    }
+                },
+                retina_detect: true
+            });
+            
+            // Cursor glow effect
+            const cursorGlow = document.getElementById('cursorGlow');
+            document.addEventListener('mousemove', (e) => {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            
+            document.addEventListener('mousedown', () => {
+                cursorGlow.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            });
+            
+            document.addEventListener('mouseup', () => {
+                cursorGlow.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if(!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+            
+            // Project filter
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.classList.remove('bg-khatarnak-accent/10');
+                        b.classList.add('border-gray-700', 'text-gray-400');
+                    });
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    btn.classList.add('bg-khatarnak-accent/10');
+                    btn.classList.remove('border-gray-700', 'text-gray-400');
+                    
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    projectCards.forEach(card => {
+                        const cardFilter = card.classList.contains('filter-' + filter);
+                        
+                        if(filter === 'all' || cardFilter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            card.style.display = 'none';
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                        }
+                    });
+                });
+            });
+            
+            // Counter animation
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+            
+            const animateCounters = () => {
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+                        
+                        if(count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 20);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+            };
+            
+            // Intersection Observer for counter animation
+            const observerOptions = {
+                threshold: 0.5
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+            
+            // Form submission
+            const contactForm = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // Here you would typically send the data to a server
+                // For demo purposes, we'll just show a success message
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Show success message
+                successMessage.classList.remove('hidden');
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 5000);
+            });
+            
+            // Scroll animations
+            const observerOptionsScroll = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptionsScroll);
+            
+            // Apply scroll animation to sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                scrollObserver.observe(section);
+            });
+            
+            // Typing animation for hero text
+            const typingElement = document.querySelector('.typing');
+            const texts = [
+                "Building high-quality, modern, and powerful websites.",
+                "Creating digital experiences that matter.",
+                "Turning ideas into reality with code."
+            ];
+            
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            
+            function type() {
+                const currentText = texts[textIndex];
+                
+                if(isDeleting) {
+                    typingElement.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingElement.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+                
+                let typeSpeed = isDeleting ? 30 : 100;
+                
+                if(!isDeleting && charIndex === currentText.length) {
+                    typeSpeed = 2000;
+                    isDeleting = true;
+                } else if(isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    typeSpeed = 500;
+                }
+                
+                setTimeout(type, typeSpeed);
+            }
+            
+            // Start typing animation after loader
+            setTimeout(type, 1800);
+        });
+    </script>
+</body>
+</html>
